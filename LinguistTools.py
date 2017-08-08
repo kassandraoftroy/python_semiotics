@@ -3,6 +3,7 @@ from operator import itemgetter
 import random
 from gensim import models
 import numpy as np
+import os
 
 characters = "1 2 3 4 5 6 7 8 9 0 * & ^ ) ( } { | ] [ ' < > @ . ! ? # $ % , ~ ≈ ç √ ∫ µ ∂ ß ˚ å ø - ∂ ¨ ƒ ¥ © ˙ ∑ œ π : ; – º _ ª • § ¶ ∞ ¢ £ ™ ¡ ª – ≠ “ ‘ « “ π ø ˆ ¨ ¥ † ∑ ® œ ¡ ™ £ ÷ ≥ ç √ ≤ ∫ µ Ω ˜ ∆ ƒ ˙ © ƒ ¥ ¨ å"
 stop_char = characters.split()
