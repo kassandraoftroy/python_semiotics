@@ -4,7 +4,6 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from .models import AI, SN, Message
-from LinguistTools import Walk
 from django.conf import settings
 import random
 import os
@@ -70,6 +69,7 @@ def chatroom(request, sn_id, bot_id):
 	return render(request, 'copy_cat/chatroom.html', context) '''
 
 def walk_home(request):
+	from LinguistTools import Walk
 	random_number = random.randint(1,150000)
 	context = {"random_number":random_number}
 	return render(request, 'copy_cat/walk_home.html', context)
