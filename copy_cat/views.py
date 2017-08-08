@@ -2,9 +2,8 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from django.conf import settings
+import LinguistTools
 import random
-import os
 
 
 def home(request):
@@ -64,7 +63,6 @@ def chatroom(request, sn_id, bot_id):
 	return render(request, 'copy_cat/chatroom.html', context) '''
 
 def walk_home(request):
-	from LinguistTools import Walk
 	random_number = random.randint(1,150000)
 	context = {"random_number":random_number}
 	return render(request, 'copy_cat/walk_home.html', context)
@@ -75,7 +73,7 @@ def walk_result(request, r):
 		if "," in input_text:
 			input_text = input_text.replace(",", "")
 		words=input_text.split()
-		readout = Walk(words[0], words[1]).take_walk()
+		readout = LinguistTools.Walk(words[0], words[1]).take_walk()
 		all_paths = [readout[2][-i] for i in range (1, len(readout[2])+1)]
 		context = {"rounds":readout[0],"volume":readout[1],"all_paths":all_paths,"example_path":readout[3],"midpoints":readout[4], "word_a":words[0], "word_b":words[1]}
 		return render(request, 'copy_cat/walk_result.html', context)
