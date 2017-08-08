@@ -10,14 +10,14 @@ import os
 characters = "1 2 3 4 5 6 7 8 9 0 * & ^ ) ( } { | ] [ ' < > @ . ! ? # $ % , ~ ≈ ç √ ∫ µ ∂ ß ˚ å ø - ∂ ¨ ƒ ¥ © ˙ ∑ œ π : ; – º _ ª • § ¶ ∞ ¢ £ ™ ¡ ª – ≠ “ ‘ « “ π ø ˆ ¨ ¥ † ∑ ® œ ¡ ™ £ ÷ ≥ ç √ ≤ ∫ µ Ω ˜ ∆ ƒ ˙ © ƒ ¥ ¨ å"
 stop_char = characters.split()
 stop_char.append('"')
+nlp = en_core_web_sm.load()
 model = models.KeyedVectors.load_word2vec_format(os.path.join(os.path.dirname(__file__), "10kVec.txt"), binary=False)
 
 class Copy_Cat:
 
 	def __init__(self, raw):
-		self.nlp = en_core_web_sm.load()
 		self.raw = open(raw, "r")
-		self.all_line = [self.nlp(self.raw.readline(i).rstrip().decode(encoding='UTF-8',errors= "strict")) for i in range(0,29171)]
+		self.all_line = [nlp(self.raw.readline(i).rstrip().decode(encoding='UTF-8',errors= "strict")) for i in range(0,29171)]
 		self.lines = [self.all_line[i] for i in range (0, len(self.all_line)) if "ROOT" in [token.dep_ for token in self.all_line[i]]] 
 		self.R_words = [[token.text for token in line] for line in self.lines]
 		self.R_grammar = [[token.dep_ for token in line] for line in self.lines]
@@ -61,7 +61,7 @@ class Copy_Cat:
 		output_sentences = []
 		for Q in formatted_input_sentences:
 			try:
-				Q_tokens = self.nlp(Q.decode(encoding='UTF-8',errors= "strict"))
+				Q_tokens = nlp(Q.decode(encoding='UTF-8',errors= "strict"))
 				Q_words = [token.text for token in Q_tokens]
 				Q_vecs = [model[word.lower()] for word in Q_words]
 				Q_avg = np.sum(np.array(Q_vecs), axis=0)
