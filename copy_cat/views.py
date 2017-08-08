@@ -2,9 +2,18 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from LinguistTools import Walk
+from django.urls import reverse 
+from django.utils import timezone
+from .models import AI, SN, Message
+from LinguistTools import Copy_Cat, Walk
+from django.conf import settings
 import random
+import os
 
+print "creating bots..."
+bot_dict = {}
+for bot in AI.objects.all():
+	bot_dict[bot.name] = Copy_Cat(os.path.join(settings.BASE_DIR, bot.filename))
 
 def home(request):
 	return render(request, 'copy_cat/home.html')
@@ -13,14 +22,12 @@ def index(request):
 	return render(request, 'copy_cat/index.html')
 
 def chat_home(request):
-	return render(request, 'copy_cat/select.html')
+	return render(request, 'copy_cat/chat_home.html')
 
 def analysis(request):
 	return HttpResponse("In development... coming soon :)")
-'''
+
 def select_bot(request):
-	for bot in AI.objects.all():
-		bot_dict[bot.name] = Copy_Cat(os.path.join(settings.BASE_DIR, bot.filename))
 	new_username = request.POST['sn']
 	new_user = SN()
 	new_user.sn = new_username
@@ -60,7 +67,7 @@ def chatroom(request, sn_id, bot_id):
 	else:
 		show_msgs = all_msgs
 	context = {"user":user, "bot":bot, "show_msgs": show_msgs}
-	return render(request, 'copy_cat/chatroom.html', context) '''
+	return render(request, 'copy_cat/chatroom.html', context)
 
 def walk_home(request):
 	random_number = random.randint(1,150000)

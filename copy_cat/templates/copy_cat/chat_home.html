@@ -1,10 +1,9 @@
 <body style='background-color:aliceblue;'><h1><a style='text-decoration:none;color:black;' href="{% url 'index' %}"><span style='color:grey;font-size:42px;font-family:georgia;'>s e m i o t i c</span>c o m p u t a t i o n</a></h1>
-<h2 style='font-family:serif;text-align:center;'><strong><font size='18'>Copy Cat Chat Bots</font></strong> (beta version)
+<h2 style='font-family:serif;text-align:center;'><strong><font size='18'>Copy Cat Chat Bots</font></strong> (beta version / #tbt AIM)
 <ul style="list-style-type:none; background-color:coral;"><ul style="list-style-type:none;"><li style='font-family:monospace; color:white;'>copy cats who converse by simply mimicking your speech patterns back to you</li></ul></ul></h2>
 <form action="{% url 'copy_cat:select' %}" method="post">
 {% csrf_token %}
 <p style='font-family:monospace;'>Create a Screen Name:<br><input type="text" name="sn"><br>
 <input type="submit" value="Enter"></p>
 </form>
-<p>it may take a minute to configure the chatroom and bots...</p>
 </body>
