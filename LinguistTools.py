@@ -8,6 +8,7 @@ import os
 characters = "1 2 3 4 5 6 7 8 9 0 * & ^ ) ( } { | ] [ ' < > @ . ! ? # $ % , ~ ≈ ç √ ∫ µ ∂ ß ˚ å ø - ∂ ¨ ƒ ¥ © ˙ ∑ œ π : ; – º _ ª • § ¶ ∞ ¢ £ ™ ¡ ª – ≠ “ ‘ « “ π ø ˆ ¨ ¥ † ∑ ® œ ¡ ™ £ ÷ ≥ ç √ ≤ ∫ µ Ω ˜ ∆ ƒ ˙ © ƒ ¥ ¨ å"
 stop_char = characters.split()
 stop_char.append('"')
+model = models.KeyedVectors.load_word2vec_format(os.path.join(os.path.dirname(__file__), "10kVec.txt"), binary=False)
 
 '''
 class Copy_Cat:
@@ -132,12 +133,11 @@ class Walk:
 	def __init__(self, A, B):
 		self.A = A.lower()
 		self.B = B.lower()
-		self.model = models.KeyedVectors.load_word2vec_format(os.path.join(os.path.dirname(__file__), "10kVec.txt"), binary=False)
 
 	def take_walk(self):
 		words = [self.A, self.B]
 		try:
-			z = [self.model[words[0]], self.model[words[1]]]
+			z = [model[words[0]], model[words[1]]]
 		except:
 			z = "!!! input error: not in vocabulary !!!"
 			return z 
@@ -152,13 +152,13 @@ class Walk:
 			new_words = []
 			similarity = []
 			for i in range (0, len(search_words)):
-				X = self.model.most_similar(positive=[search_words[i]], topn=N)
+				X = model.most_similar(positive=[search_words[i]], topn=N)
 				for k in range (0, len(X)):
 					if X[k][0] not in all_found_words:
 						round_track.append((search_words[i], X[k][0]))
 						if X[k][0] not in new_words:
 							new_words.append(X[k][0])
-							similarity.append(float(self.model.similarity(words[1], X[k][0])))
+							similarity.append(float(model.similarity(words[1], X[k][0])))
 			word_tracking.append(round_track)
 			search_words = []
 			for i in range (0, 10):
