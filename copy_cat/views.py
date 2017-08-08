@@ -2,9 +2,6 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from django.utils import timezone
-from .models import AI
-from LinguistTools import Walk
 from django.conf import settings
 import random
 import os
@@ -17,9 +14,7 @@ def index(request):
 	return render(request, 'copy_cat/index.html')
 
 def chat_home(request):
-	bots = AI.objects.all()
-	context = {"bots": bots}
-	return render(request, 'copy_cat/select.html', context)
+	return render(request, 'copy_cat/select.html')
 
 def analysis(request):
 	return HttpResponse("In development... coming soon :)")
@@ -69,6 +64,7 @@ def chatroom(request, sn_id, bot_id):
 	return render(request, 'copy_cat/chatroom.html', context) '''
 
 def walk_home(request):
+	from LinguistTools import Walk
 	random_number = random.randint(1,150000)
 	context = {"random_number":random_number}
 	return render(request, 'copy_cat/walk_home.html', context)

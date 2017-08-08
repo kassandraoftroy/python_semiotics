@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from operator import itemgetter
-import os
 import random
-from django.conf import settings
 from gensim import models
 import numpy as np
 
