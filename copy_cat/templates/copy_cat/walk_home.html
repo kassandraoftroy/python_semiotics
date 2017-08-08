@@ -1,0 +1,10 @@
+<body style='background-color:aliceblue;'><h1><a style='text-decoration:none;color:black;' href="{% url 'index' %}"><span style='color:grey;font-size:42px;font-family:georgia;'>s e m i o t i c</span>c o m p u t a t i o n</a></h1>
+<h2 style='text-align:center;color:black;font-family:impact;'>WALK.A2B</h2><p style='text-align:center;font-family:georgia;'>finds the shortest path(s) from one word to another by linking through near neighbors on a 300-D word manifold.</p>
+<span style='text-align:center;'><form action="{% url 'walk_result' random_number %}" method="post">
+{% csrf_token %}
+<p><strong>input two words like this: WORD A, WORD B</strong><br><input type="text" name="walk"><br>
+<input type="submit" value="Take Walk"></p>
+</form></span><br><br><br>
+<ul><li style='list-style-type:none;background-color:bisque;font-family:georgia;'>> the WALK.A2B program starts at WORD.A and chooses one of its fifteen nearest neighbors to move to <br><br>> > > then it choses to move to one of the fifteen nearest neighbors of that word <br><br>> > > > > > it repeats the process until it has landed on WORD.B </li><ul><li style='list-style-type:none;'><br> useful for: 1. paradigmatic analysis; 2. finding a good mixture/melange of the two words (the midpoints); 3. finding topics and word neighborhoods that connect and intersect with both words.</li></ul></ul>
+
+</body>

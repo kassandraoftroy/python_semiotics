@@ -1,0 +1,9 @@
+<body style='background-color:aliceblue;'>
+<h1>. . .setting up chatroom for <span style='color:maroon;'>{{user.sn}}</span> and <span style='color:maroon;'>{{bot.name}}</span>. . .</h1>
+<p style='text-align:center;font-family:impact;'>TYPE AND SUBMIT TO BEGIN</p>
+<span style='text-align:center;'><form action="{% url 'copy_cat:chatroom' user.id bot.id %}" method="post">
+{% csrf_token %}
+<p>{{user.sn}}:<input type="text" name="chat"><br>
+<input type="submit" value="enter chatroom"></p>
+</form></span>
+</body>

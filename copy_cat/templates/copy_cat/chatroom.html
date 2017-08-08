@@ -1,0 +1,12 @@
+<body style='background-color:aliceblue;'><h1><a style='text-decoration:none;color:black;' href="{% url 'index' %}"><span style='color:grey;font-size:42px;font-family:georgia;'>s e m i o t i c</span>c o m p u t a t i o n</a></h1>
+<h2 style='background-color:bisque;text-align:center;'>OLD-SCHOOL CHATROOM</h2>
+{% for msg in show_msgs %}
+<p><span style='color:maroon;'><strong>{{msg.speaker}}:</strong></span> {{msg.text}}</p>
+{% endfor %}
+<form action="{% url 'copy_cat:chatroom' user.id bot.id %}" method="post">
+{% csrf_token %}
+<p><strong>{{user.sn}}:</strong><input type="text" name="chat"><br>
+<input type="submit" value="enter"></p>
+</form>
+<a href="{% url 'copy_cat:chat_home' %}">back</a>
+</body>
