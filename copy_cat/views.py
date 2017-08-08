@@ -24,20 +24,22 @@ def analysis(request):
 	return HttpResponse("In development... coming soon :)")
 
 def select_bot(request):
-	for bot in AI.objects.all():
-		bot_dict[bot.name] = Copy_Cat(os.path.join(settings.BASE_DIR, bot.filename))
-	new_username = request.POST['sn']
-	new_user = SN()
-	new_user.sn = new_username
-	new_user.time = timezone.now()
-	new_user.save()
-	bots = AI.objects.all()
-	context = {"new_user":new_user, "bots":bots}
-	return render(request, 'copy_cat/select.html', context)
+	try:
+		bots = AI.objects.all()
+		new_username = request.POST['sn']
+		new_user = SN()
+		new_user.sn = new_username
+		new_user.time = timezone.now()
+		new_user.save()
+		context = {"new_user":new_user, "bots":bots}
+		return render(request, 'copy_cat/select.html', context)
+	except:
+		return HttpResponse("There's an error loading the bots!")
 
 def start_chat(request, sn_id, bot_id):
 	user = SN.objects.get(pk=sn_id)
 	bot = AI.objects.get(pk=bot_id)
+	bot_dict[bot.name]=Copy_Cat(os.path.join(settings.BASE_DIR, bot.filename))
 	context = {"user":user, "bot":bot}
 	return render(request,'copy_cat/start.html', context)
 
