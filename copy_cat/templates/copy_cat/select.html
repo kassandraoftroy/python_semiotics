@@ -1,9 +1,10 @@
 <body style='background-color:aliceblue;'><h1><a style='text-decoration:none;color:black;' href="{% url 'index' %}"><span style='color:grey;font-size:42px;font-family:georgia;'>s e m i o t i c</span>c o m p u t a t i o n</a></h1>
-<h2 style='text-align:center;'> Hello, {{ new_user.sn }}</h2>
+<h2 style='text-align:center;'> Hello, (WEBCHAT NOT AVAILABLE)</h2>
 {% for b in bots %}
 <h2><strong>{{b.name}}</strong></h2>
 <ul style="list-style-type:none;"><li>{{b.style}}</li>
-<li><a href="{% url 'copy_cat:start' new_user.id b.id %}">chat with {{b.name}}</a></li></ul>
+<li>chat with {{b.name}}</li></ul>
 {% endfor %}
+<p>WEB CHAT CURRENTLY DOWN... TOO EXPENSIVE TO HAVE BOTS COMPUTING WITH SO MUCH RAM IN CLOUD, SORRY!</p>
 
 

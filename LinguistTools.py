@@ -5,8 +5,6 @@ import os
 import random
 from django.conf import settings
 import zipfile
-import spacy
-import en_core_web_sm
 from gensim import models
 import numpy as np
 import zipfile
@@ -20,10 +18,10 @@ else:
 characters = "1 2 3 4 5 6 7 8 9 0 * & ^ ) ( } { | ] [ ' < > @ . ! ? # $ % , ~ ≈ ç √ ∫ µ ∂ ß ˚ å ø - ∂ ¨ ƒ ¥ © ˙ ∑ œ π : ; – º _ ª • § ¶ ∞ ¢ £ ™ ¡ ª – ≠ “ ‘ « “ π ø ˆ ¨ ¥ † ∑ ® œ ¡ ™ £ ÷ ≥ ç √ ≤ ∫ µ Ω ˜ ∆ ƒ ˙ © ƒ ¥ ¨ å"
 stop_char = characters.split()
 stop_char.append('"')
-nlp = en_core_web_sm.load()
 model = models.KeyedVectors.load_word2vec_format(os.path.join(os.path.dirname(__file__), "75kVec.txt"), binary=False)
 print "loading complete!"
 
+'''
 class Copy_Cat:
 
 	def __init__(self, raw):
@@ -140,7 +138,7 @@ class Copy_Cat:
 				output_sentences.append(" ".join([token.text for token in output]) + ".")
 		final_output = " ".join(output_sentences)
 		return final_output
-
+'''
 
 class Walk:
 
