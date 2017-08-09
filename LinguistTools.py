@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import time
 from operator import itemgetter
 import random
 import en_core_web_sm
@@ -15,6 +16,7 @@ model = models.KeyedVectors.load_word2vec_format(os.path.join(os.path.dirname(__
 class Copy_Cat:
 
 	def __init__(self, raw):
+		now = time.time()
 		text = open(raw, "r")
 		all1 = text.read()
 		text.close()
@@ -29,7 +31,8 @@ class Copy_Cat:
 					sentences.append(s)
 				s = ""
 		pipeline = nlp.pipe([unicode(sent) for sent in sentences], n_threads=-1)
-		tokenized_sents = [pipeline.next() for i in range (0, 12000)]
+		tokenized_sents = [pipeline.next() for i in range (0, 10000)]
+		print "tkenizing took %s" %(time.time()-now)
 		self.lines = [tokenized_sents[i] for i in range (0, len(tokenized_sents)) if "ROOT" in [token.dep_ for token in tokenized_sents[i]]] 
 		self.R_words = [[token.text for token in line] for line in self.lines]
 		self.R_grammar = [[token.dep_ for token in line] for line in self.lines]
