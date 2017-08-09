@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from operator import itemgetter
 import random
-from spacy import load
 import en_core_web_sm
 from gensim import models
 import numpy as np
@@ -10,21 +9,33 @@ import os
 characters = "1 2 3 4 5 6 7 8 9 0 * & ^ ) ( } { | ] [ ' < > @ . ! ? # $ % , ~ ≈ ç √ ∫ µ ∂ ß ˚ å ø - ∂ ¨ ƒ ¥ © ˙ ∑ œ π : ; – º _ ª • § ¶ ∞ ¢ £ ™ ¡ ª – ≠ “ ‘ « “ π ø ˆ ¨ ¥ † ∑ ® œ ¡ ™ £ ÷ ≥ ç √ ≤ ∫ µ Ω ˜ ∆ ƒ ˙ © ƒ ¥ ¨ å"
 stop_char = characters.split()
 stop_char.append('"')
-nlp = en_core_web_sm.load()
-model = models.KeyedVectors.load_word2vec_format(os.path.join(os.path.dirname(__file__), "10kVec.txt"), binary=False)
+model = models.KeyedVectors.load_word2vec_format(os.path.join(os.path.dirname(__file__), "25kVec.txt"), binary=False)
 
 class Copy_Cat:
 
 	def __init__(self, raw):
-		self.raw = open(raw, "r")
-		self.all_line = [nlp(self.raw.readline(i).rstrip().decode(encoding='UTF-8',errors= "strict")) for i in range(0,29171)]
-		self.lines = [self.all_line[i] for i in range (0, len(self.all_line)) if "ROOT" in [token.dep_ for token in self.all_line[i]]] 
+		self.nlp = en_core_web_sm.load()
+		text = open(raw, "r")
+		all1 = text.read()
+		text.close()
+		all2 = all1.replace("\n", "Z")
+		sentences = []
+		s = ""
+		for char in all2:
+			if char != "Z":
+				s = s + char 
+			else:
+				if s != "":
+					sentences.append(s)
+				s = ""
+		pipeline = self.nlp.pipe([unicode(sent) for sent in sentences], n_threads=-1)
+		tokenized_sents = [pipeline.next() for i in range (0, len(sentences))]
+		self.lines = [tokenized_sents[i] for i in range (0, len(tokenized_sents)) if "ROOT" in [token.dep_ for token in tokenized_sents[i]]] 
 		self.R_words = [[token.text for token in line] for line in self.lines]
 		self.R_grammar = [[token.dep_ for token in line] for line in self.lines]
 		self.R_children = [self.lines[i][self.R_grammar[i].index("ROOT")].children for i in range (0, len(self.lines))]
 		self.R_children_words = [[token.text for token in self.R_children[i]] for i in range (0, len(self.lines))]
 		self.R_children_grammar = [[self.lines[i][self.R_words[i].index(item)].dep_ for item in self.R_children_words[i]] for i in range (0, len(self.lines))]
-
 
 	def response(self, paragraph_input):
 		formatted_input_sentences = []
@@ -61,7 +72,7 @@ class Copy_Cat:
 		output_sentences = []
 		for Q in formatted_input_sentences:
 			try:
-				Q_tokens = nlp(Q.decode(encoding='UTF-8',errors= "strict"))
+				Q_tokens = self.nlp(Q.decode(encoding='UTF-8',errors= "strict"))
 				Q_words = [token.text for token in Q_tokens]
 				Q_vecs = [model[word.lower()] for word in Q_words]
 				Q_avg = np.sum(np.array(Q_vecs), axis=0)
@@ -123,10 +134,7 @@ class Copy_Cat:
 				output = sorted(tier_1_similarity, key=itemgetter(1), reverse=True)[0][0]
 			else:
 				output = sorted(tier_2_similarity, key=itemgetter(1), reverse=True)[0][0]
-			if output[0].text in ['who', 'what', 'when', 'where', 'how', 'are', 'is', 'why']:
-				output_sentences.append(" ".join([token.text for token in output]) + "?")
-			else:
-				output_sentences.append(" ".join([token.text for token in output]) + ".")
+			output_sentences.append(" ".join([token.text for token in output]) + "   ")
 		final_output = " ".join(output_sentences)
 		return final_output 
 
