@@ -29,7 +29,7 @@ class Copy_Cat:
 					sentences.append(s)
 				s = ""
 		pipeline = nlp.pipe([unicode(sent) for sent in sentences], n_threads=-1)
-		tokenized_sents = [pipeline.next() for i in range (0, len(sentences))]
+		tokenized_sents = [pipeline.next() for i in range (0, 10000)]
 		self.lines = [tokenized_sents[i] for i in range (0, len(tokenized_sents)) if "ROOT" in [token.dep_ for token in tokenized_sents[i]]] 
 		self.R_words = [[token.text for token in line] for line in self.lines]
 		self.R_grammar = [[token.dep_ for token in line] for line in self.lines]
