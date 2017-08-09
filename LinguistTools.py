@@ -9,7 +9,7 @@ import os
 characters = "1 2 3 4 5 6 7 8 9 0 * & ^ ) ( } { | ] [ ' < > @ . ! ? # $ % , ~ ≈ ç √ ∫ µ ∂ ß ˚ å ø - ∂ ¨ ƒ ¥ © ˙ ∑ œ π : ; – º _ ª • § ¶ ∞ ¢ £ ™ ¡ ª – ≠ “ ‘ « “ π ø ˆ ¨ ¥ † ∑ ® œ ¡ ™ £ ÷ ≥ ç √ ≤ ∫ µ Ω ˜ ∆ ƒ ˙ © ƒ ¥ ¨ å"
 stop_char = characters.split()
 stop_char.append('"')
-model = models.KeyedVectors.load_word2vec_format(os.path.join(os.path.dirname(__file__), "25kVec.txt"), binary=False)
+model = models.KeyedVectors.load_word2vec_format(os.path.join(os.path.dirname(__file__), "10kVec.txt"), binary=False)
 
 class Copy_Cat:
 
