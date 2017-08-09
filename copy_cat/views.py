@@ -64,6 +64,7 @@ def chatroom(request, sn_id, bot_id):
 		show_msgs = all_msgs[len(all_msgs) - 10: len(all_msgs)]
 	else:
 		show_msgs = all_msgs
+	show_msgs = list(reversed(show_messages))
 	context = {"user":user, "bot":bot, "show_msgs": show_msgs}
 	return render(request, 'copy_cat/chatroom.html', context)
 
