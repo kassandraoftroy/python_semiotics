@@ -9,12 +9,12 @@ import os
 characters = "1 2 3 4 5 6 7 8 9 0 * & ^ ) ( } { | ] [ ' < > @ . ! ? # $ % , ~ ≈ ç √ ∫ µ ∂ ß ˚ å ø - ∂ ¨ ƒ ¥ © ˙ ∑ œ π : ; – º _ ª • § ¶ ∞ ¢ £ ™ ¡ ª – ≠ “ ‘ « “ π ø ˆ ¨ ¥ † ∑ ® œ ¡ ™ £ ÷ ≥ ç √ ≤ ∫ µ Ω ˜ ∆ ƒ ˙ © ƒ ¥ ¨ å"
 stop_char = characters.split()
 stop_char.append('"')
-model = models.KeyedVectors.load_word2vec_format(os.path.join(os.path.dirname(__file__), "10kVec.txt"), binary=False)
+nlp = en_core_web_sm.load()
+model = models.KeyedVectors.load_word2vec_format(os.path.join(os.path.dirname(__file__), "17kVec.txt"), binary=False)
 
 class Copy_Cat:
 
 	def __init__(self, raw):
-		self.nlp = en_core_web_sm.load()
 		text = open(raw, "r")
 		all1 = text.read()
 		text.close()
@@ -28,7 +28,7 @@ class Copy_Cat:
 				if s != "":
 					sentences.append(s)
 				s = ""
-		pipeline = self.nlp.pipe([unicode(sent) for sent in sentences], n_threads=-1)
+		pipeline = nlp.pipe([unicode(sent) for sent in sentences], n_threads=-1)
 		tokenized_sents = [pipeline.next() for i in range (0, len(sentences))]
 		self.lines = [tokenized_sents[i] for i in range (0, len(tokenized_sents)) if "ROOT" in [token.dep_ for token in tokenized_sents[i]]] 
 		self.R_words = [[token.text for token in line] for line in self.lines]
@@ -72,7 +72,7 @@ class Copy_Cat:
 		output_sentences = []
 		for Q in formatted_input_sentences:
 			try:
-				Q_tokens = self.nlp(Q.decode(encoding='UTF-8',errors= "strict"))
+				Q_tokens = nlp(Q.decode(encoding='UTF-8',errors= "strict"))
 				Q_words = [token.text for token in Q_tokens]
 				Q_vecs = [model[word.lower()] for word in Q_words]
 				Q_avg = np.sum(np.array(Q_vecs), axis=0)
