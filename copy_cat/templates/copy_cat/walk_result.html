@@ -1,5 +1,6 @@
 <body style='background-color:aliceblue;'><h1><a style='text-decoration:none;color:black;' href="{% url 'index' %}"><span style='color:grey;font-size:42px;font-family:georgia;'>s e m i o t i c</span>c o m p u t a t i o n</a></h1>
-<h2 style='text-align:center;'>results for {{ word_a }} to {{ word_b }}</h2>
+<h2 style='text-align:center;'>the midpoint of <span style='color:red'><strong>{{ word_a }}</strong></span> and <span style='color:red'><strong>{{ word_b }}</strong></span> is <span style='color:red;font-size:32px'>{{ midpoints.-1 }}</span>
+<h2>results for {{ word_a }} to {{ word_b }}</h2>
 <h3>{% for p in example_path %}
 {{ p }}<br>
 {% endfor %}&emsp;&emsp;&emsp;&emsp;&emsp;<span style='font-size:14px;'>*one example of a few possibilites</span></h3>
