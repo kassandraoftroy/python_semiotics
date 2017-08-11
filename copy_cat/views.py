@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import timezone
 from .models import AI, SN, Message
-from LinguistTools import Copy_Cat, Walk
+from LTEasy import Copy_Cat, Walk
 from django.conf import settings
 import random
 import os
