@@ -18,7 +18,7 @@ from django.contrib import admin
 from copy_cat import views
 
 urlpatterns = [
-    url(r'$', views.home, name='root'),
+    url(r'^', views.home, name='root'),
     url(r'^home/', views.home, name='home'),
     url(r'^index/', views.index, name='index'),
 	url(r'^chat/', include('copy_cat.urls')),
