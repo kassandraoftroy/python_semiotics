@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from operator import itemgetter
 import random
-import en_core_web_sm
 from gensim import models
 import numpy as np
 import os
