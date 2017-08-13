@@ -58,12 +58,13 @@ def chatroom(request, sn_id, bot_id):
 	bot_message.speaker = bot.name
 	bot_message.pub_date = timezone.now()
 	bot_message.save()
-	all_msgs = user.message_set.order_by('-pub_date')
+	all_msgs = user.message_set.sort_by('-pub_date')
 	n = len(all_msgs)
 	if n > 10:
 		show_msgs = all_msgs[len(all_msgs) - 10: len(all_msgs)]
 	else:
 		show_msgs = all_msgs
+	show_msgs = list(reversed(show_msgs))
 	context = {"user":user, "bot":bot, "show_msgs": show_msgs}
 	return render(request, 'copy_cat/chatroom.html', context)
 
