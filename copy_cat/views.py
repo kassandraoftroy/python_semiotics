@@ -79,7 +79,7 @@ def walk_result(request, r):
 		B = request.POST['b']
 		readout = Walk(A, B).take_walk()
 		all_paths = [readout[2][-i] for i in range (1, len(readout[2])+1)]
-		context = {"rounds":readout[0],"volume":readout[1],"all_paths":all_paths,"example_path":readout[3],"midpoints":readout[4], "word_a":words[0], "word_b":words[1]}
+		context = {"rounds":readout[0],"volume":readout[1],"all_paths":all_paths,"example_path":readout[3],"midpoints":readout[4], "word_a":A, "word_b":B}
 		return render(request, 'copy_cat/walk_result.html', context)
 	except:
 		return render(request, 'copy_cat/walk_noresult.html')

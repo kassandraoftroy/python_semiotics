@@ -2,7 +2,8 @@
 <h2 style='text-align:center;color:black;font-family:impact;'>WALK.A2B</h2><p style='text-align:center;font-family:georgia;'>finds the shortest path(s) from one word to another by linking through near neighbors on a 300-D word manifold.</p>
 <span style='text-align:center;'><form action="{% url 'walk_result' random_number %}" method="post">
 {% csrf_token %}
-<p><strong>WORD A</strong><br><input type="text" name="a"><br>
+<br>
+<p><strong>WORD A</strong><input type="text" name="a"><br>
 <strong>WORD B</strong><input type="text" name="b"><br>
 <input type="submit" value="Take Walk"></p>
 </form></span><br><br><br>
