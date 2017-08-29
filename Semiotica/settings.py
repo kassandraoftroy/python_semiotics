@@ -26,7 +26,7 @@ with open(os.path.join(BASE_DIR, "info.txt")) as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [u'pythonsemiotics.herokuapp.com', u'127.0.0.1']
+ALLOWED_HOSTS = [u'pythonsemiotics.herokuapp.com', u'127.0.0.1', u'www.postsubjectivity.com']
 
 
 # Application definition
