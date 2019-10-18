@@ -16,7 +16,7 @@ pathlib==1.0.1
 plac==0.9.6
 psycopg2==2.6.2
 regex==2017.7.28
-requests==2.18.3
+requests==2.20.0
 spacy-nightly
 termcolor==1.1.0
 toolz==0.8.2
